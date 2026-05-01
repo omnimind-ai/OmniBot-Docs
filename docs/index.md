@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: OmnibotApp Docs
+  name: Omnibot
   text: Kotlin + Flutter 的安卓 AI Agent 文档站
   tagline: 基于当前仓库代码整理，覆盖配置、功能介绍、使用教程与开发参考。
   image:
@@ -57,7 +57,7 @@ features:
   </div>
 </div>
 
-![Omnibot 示例界面](/assets/example.jpg)
+![Omnibot 示例界面](/assets/example.png)
 
 ## 推荐阅读顺序
 
