@@ -1,13 +1,52 @@
 import { defineConfig } from 'vitepress'
 
+function normalizeBase(rawBase: string): string {
+  let base = rawBase.trim()
+
+  if (base.length === 0) {
+    return '/'
+  }
+
+  if (!base.startsWith('/')) {
+    base = `/${base}`
+  }
+
+  if (!base.endsWith('/')) {
+    base = `${base}/`
+  }
+
+  return base
+}
+
+function resolveBase(): string {
+  const explicitBase = process.env.VITEPRESS_BASE?.trim()
+  if (explicitBase) {
+    return normalizeBase(explicitBase)
+  }
+
+  const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]?.trim()
+  if (process.env.GITHUB_ACTIONS === 'true' && repositoryName) {
+    if (repositoryName.endsWith('.github.io')) {
+      return '/'
+    }
+
+    return `/${repositoryName}/`
+  }
+
+  return '/'
+}
+
+const base = resolveBase()
+
 export default defineConfig({
+  base,
   lang: 'zh-CN',
   title: 'OmnibotApp Docs',
   description: 'Kotlin + Flutter 安卓 AI Agent 项目文档站',
   cleanUrls: true,
   lastUpdated: true,
   head: [
-    ['link', { rel: 'icon', href: '/assets/omnibot.png' }],
+    ['link', { rel: 'icon', href: `${base}assets/omnibot.png` }],
     ['meta', { name: 'theme-color', content: '#0f766e' }]
   ],
   themeConfig: {

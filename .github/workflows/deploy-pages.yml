@@ -1,0 +1,81 @@
+name: Deploy VitePress site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Resolve VitePress base path
+        env:
+          PAGES_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: |
+          if [ -n "$PAGES_BASE_PATH" ]; then
+            BASE_PATH="$PAGES_BASE_PATH"
+          elif [[ "$REPOSITORY_NAME" == *.github.io ]]; then
+            BASE_PATH="/"
+          else
+            BASE_PATH="/$REPOSITORY_NAME/"
+          fi
+
+          if [[ "$BASE_PATH" != /* ]]; then
+            BASE_PATH="/$BASE_PATH"
+          fi
+
+          if [[ "$BASE_PATH" != */ ]]; then
+            BASE_PATH="$BASE_PATH/"
+          fi
+
+          echo "VITEPRESS_BASE=$BASE_PATH" >> "$GITHUB_ENV"
+          echo "Resolved VitePress base path: $BASE_PATH"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run docs:build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
