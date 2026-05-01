@@ -140,7 +140,7 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   head: [
-    ['link', { rel: 'icon', href: `${base}assets/omnibot.png` }],
+    ['link', { rel: 'icon', href: `${base}assets/app-logo.png` }],
     ['meta', { name: 'theme-color', content: '#0f766e' }]
   ],
   themeConfig: {

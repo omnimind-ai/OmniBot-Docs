@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: Omnibot
-  text: Kotlin + Flutter 的安卓 AI Agent 文档站
+  name: 小万
+  text: Kotlin & Flutter 的安卓 AI Agent 文档
   tagline: 基于当前仓库代码整理，覆盖配置、功能介绍、使用教程与开发参考。
   image:
     src: /assets/omnibot.png

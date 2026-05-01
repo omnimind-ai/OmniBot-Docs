@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: Omnibot
-  text: Documentation for the Kotlin + Flutter Android AI agent project
+  text: Documentation for the Kotlin & Flutter Android AI Agent
   tagline: A bilingual documentation site covering setup, configuration, features, tutorials, and architecture notes based on the current codebase.
   image:
     src: /assets/omnibot.png
