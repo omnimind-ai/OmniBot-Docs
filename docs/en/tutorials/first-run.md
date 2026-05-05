@@ -1,16 +1,28 @@
 # First Run
 
-This walkthrough takes the app from “it launches” to “it can actually execute tasks.”
 
 ## Step 1: Install and open the app
 
-For development builds, the easiest install path is:
+GitHub Release:
+https://github.com/omnimind-ai/OpenOmniBot/releases
+
+CNB, recommended for users in mainland China:
+https://cnb.cool/o.a/OpenOmniBot/-/releases
+
+We provide two package variants. The in-app auto-updater will keep using the variant you selected. If you want to switch variants later, install the other package manually once to overwrite the current one.
+
+![apk](/assets/apk.png)
+
+For development builds:
 
 ```bash
-./gradlew installDevelopDebug
+./gradlew :app:installDevelopStandardDebug -Ptarget=lib/main_standard.dart # install the standard slim version
+./gradlew :app:installDevelopOmniinferDebug -Ptarget=lib/main_omniinfer.dart # install the version with local model inference
 ```
 
-After the first launch, make sure you can enter the main screen and the settings area.
+After the first launch, the welcome page appears while the app initializes the Alpine system in the background:
+
+<img src="/assets/welcome.png" alt="welcome" style="width:30%;" />
 
 ## Step 2: Complete the core permissions
 

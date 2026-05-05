@@ -1,16 +1,25 @@
 # 首次启动
 
-这一篇按真实使用顺序走一遍，把应用从“能打开”带到“可以执行任务”。
-
 ## 第 1 步：安装并打开应用
 
-如果你是开发环境，优先用：
+Github Release:
+https://github.com/omnimind-ai/OpenOmniBot/releases
 
+CNB(国内网络优先)：
+https://cnb.cool/o.a/OpenOmniBot/-/releases
+
+我们提供两种形式的安装包，后续软件内自动更新会自动保持该选择。如果你想要更换的话，直接手动覆盖一次安装即可。
+![apk](/assets/apk.png)
+
+如果你是开发环境：
 ```bash
-./gradlew installDevelopDebug
+./gradlew :app:installDevelopStandardDebug -Ptarget=lib/main_standard.dart #安装标准slim版本
+./gradlew :app:installDevelopOmniinferDebug -Ptarget=lib/main_omniinfer.dart #安装带有本地模型推理版本
 ```
 
-首次启动时，先确认应用能够进入主界面和设置页。
+首次启动后，会出现如下的欢迎页面并且后台开始初始化 alpine 系统：
+<img src="/assets/welcome.png" alt="welcome" style="width:30%;" />
+
 
 ## 第 2 步：补齐核心权限
 
