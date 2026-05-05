@@ -39,28 +39,25 @@ function resolveBase(): string {
 const base = resolveBase()
 
 const zhNav = [
-  { text: '快速开始', link: '/guide/getting-started' },
-  { text: '配置指南', link: '/guide/configuration' },
-  { text: '功能介绍', link: '/features/overview' },
   { text: '使用教程', link: '/tutorials/first-run' },
-  { text: '参考资料', link: '/reference/architecture' }
+  { text: '功能介绍', link: '/features/overview' },
+  { text: '参考资料', link: '/reference/architecture' },
+  { text: '开发指南', link: '/guide/development' }
 ]
 
 const enNav = [
-  { text: 'Getting Started', link: '/en/guide/getting-started' },
-  { text: 'Configuration', link: '/en/guide/configuration' },
-  { text: 'Features', link: '/en/features/overview' },
   { text: 'Tutorials', link: '/en/tutorials/first-run' },
-  { text: 'Reference', link: '/en/reference/architecture' }
+  { text: 'Features', link: '/en/features/overview' },
+  { text: 'Reference', link: '/en/reference/architecture' },
+  { text: 'Development Guide', link: '/en/guide/development' }
 ]
 
 const zhSidebar = {
   '/guide/': [
     {
-      text: '入门',
+      text: '开发',
       items: [
-        { text: '快速开始', link: '/guide/getting-started' },
-        { text: '配置指南', link: '/guide/configuration' },
+        { text: '开发指南', link: '/guide/development' },
         { text: '项目结构', link: '/guide/project-structure' }
       ]
     }
@@ -96,10 +93,9 @@ const zhSidebar = {
 const enSidebar = {
   '/en/guide/': [
     {
-      text: 'Guide',
+      text: 'Development',
       items: [
-        { text: 'Getting Started', link: '/en/guide/getting-started' },
-        { text: 'Configuration', link: '/en/guide/configuration' },
+        { text: 'Development Guide', link: '/en/guide/development' },
         { text: 'Project Structure', link: '/en/guide/project-structure' }
       ]
     }

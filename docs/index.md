@@ -4,17 +4,17 @@ layout: home
 hero:
   name: 小万
   text: 你的端侧 AI 助手
-  tagline: 配置、功能介绍、使用教程与开发参考。
+  tagline: 功能介绍、使用教程、开发指南与参考资料。
   image:
     src: /assets/app-logo.png
     alt: App logo
   actions:
     - theme: brand
-      text: 快速开始
-      link: /guide/getting-started
+      text: 开发指南
+      link: /guide/development
     - theme: alt
-      text: 查看配置
-      link: /guide/configuration
+      text: 使用教程
+      link: /tutorials/first-run
 
 features:
   - title: 原生 Android + Flutter 混合架构
@@ -26,42 +26,17 @@ features:
   - title: 本地模型与远端模型并存
     details: 场景模型支持 OpenAI 兼容协议和 Anthropic；本地模型支持 llama.cpp、MNN 和 QNN。
   - title: 工作区、技能与终端
-    details: 内置 workspace、技能仓、终端运行时与文件预览，方便把 AI Agent 扩展成可执行工作台。
+    details: 内置 alpine workspace、技能仓库、终端运行时与文件预览，方便把 AI Agent 扩展成可执行工作台。
   - title: MCP 与 WebChat 能力
     details: 应用内可启用局域网 MCP 服务和 WebChat 镜像，同时支持配置远端 MCP 工具服务。
 ---
 
-## 这份文档解决什么问题
-
-- 帮你快速搭起本地开发环境并成功构建 APK。
-- 帮你理解项目的 Kotlin / Flutter / AI 能力是如何拼在一起的。
-- 帮你从权限、模型、场景、技能、工作区一路走到可用状态。
-- 帮你在做二次开发时快速定位核心模块、配置项和数据落盘位置。
-
-<div class="metric-grid">
-  <div>
-    <strong>Android 宿主</strong><br>
-    App、服务、MCP、前台能力
-  </div>
-  <div>
-    <strong>Flutter UI</strong><br>
-    Chat、Settings、Models、Workspace
-  </div>
-  <div>
-    <strong>Assists 状态机</strong><br>
-    任务生命周期与执行编排
-  </div>
-  <div>
-    <strong>本地能力</strong><br>
-    Memory、Skills、Local Models、Terminal
-  </div>
-</div>
 
 ![Omnibot 示例界面](/assets/example.png)
 
 ## 推荐阅读顺序
 
-1. 先看 [快速开始](/guide/getting-started)，确认依赖和构建命令。
-2. 再看 [配置指南](/guide/configuration)，把模型、权限、MCP、工作区记忆配好。
-3. 接着看 [首次启动教程](/tutorials/first-run) 和 [模型与场景配置](/tutorials/model-setup)。
+1. 先看 [功能总览](/features/overview)，了解端侧 Agent 的核心能力。
+2. 接着看 [首次启动教程](/tutorials/first-run) 和 [模型与场景配置](/tutorials/model-setup)。
+3. 做开发时再看 [开发指南](/guide/development)，确认依赖、构建命令、模型、权限、MCP 和工作区记忆配置。
 4. 最后按需查看 [架构参考](/reference/architecture) 和 [权限与存储](/reference/permissions-and-storage)。

@@ -1,8 +1,104 @@
-# Configuration
+# Development Guide
 
-This page is organized from “make it run” to “make it useful”: build settings first, then providers, scenes, memory, MCP, and local models.
+This page merges the previous “Getting Started” and “Configuration” pages into one development path: get the project running first, then wire build settings, models, permissions, memory, MCP, and local inference.
 
-## 1. Build and signing configuration
+::: tip
+This page follows the current repository code. When older notes conflict with real files such as `build.gradle.kts`, `settings.gradle.kts`, or `pubspec.yaml`, trust the code first.
+:::
+
+## 1. Requirements
+
+OmnibotApp is an Android AI agent project built with a `Kotlin + Flutter` hybrid architecture. It is designed for the full execution loop of understanding, deciding, acting, and reflecting instead of functioning as a chat-only app.
+
+- JDK `11+`
+- Flutter SDK `3.9.2+`
+- Android SDK with `compileSdk 36`
+- Node.js `18+` only for running this standalone VitePress documentation site
+
+## 2. Clone the source
+
+```bash
+git clone https://github.com/omnimind-ai/OpenOmniBot.git
+cd OpenOmniBot
+```
+
+## 3. Initialize the required submodules
+
+The project currently depends directly on `third_party/omniinfer`, so at minimum initialize these pieces:
+
+```bash
+git submodule update --init third_party/omniinfer
+git -C third_party/omniinfer submodule update --init framework/mnn
+git -C third_party/omniinfer submodule update --init framework/llama.cpp
+```
+
+If you plan to focus on Qualcomm NPU flows later, you can then look deeper into the ExecuTorch QNN path.
+
+## 4. Initialize the Flutter module
+
+```bash
+cd ui
+flutter pub get
+```
+
+If Flutter reports:
+
+```text
+Could not read script '.../ui/.android/include_flutter.groovy'
+```
+
+run:
+
+```bash
+flutter clean
+flutter pub get
+```
+
+## 5. Build the Android debug app
+
+Back at the repository root:
+
+```bash
+./gradlew assembleDevelopDebug
+```
+
+To install directly on a device:
+
+```bash
+./gradlew installDevelopDebug
+```
+
+## 6. Common verification commands
+
+### Android / Gradle
+
+```bash
+./gradlew test
+./gradlew lint
+```
+
+### Flutter
+
+```bash
+cd ui
+flutter test
+flutter analyze
+```
+
+## 7. Important build facts from the current codebase
+
+- Android `applicationId`: `cn.com.omnimind.bot`
+- `minSdk`: `29`
+- `targetSdk`: `34`
+- `compileSdk`: `36`
+- Current app version in `app/build.gradle.kts`:
+  - `versionCode = 1`
+  - `versionName = "0.3.9"`
+- Product flavors:
+  - `develop`
+  - `production`
+
+## 8. Build and signing configuration
 
 The root `gradle.properties` currently exposes two key directions:
 
@@ -34,7 +130,7 @@ The current `release` build enables:
 - code shrinking / obfuscation
 - V2 and V3 signatures
 
-## 2. Model provider profiles
+## 9. Model provider profiles
 
 The provider configuration UI supports two protocol families:
 
@@ -50,7 +146,7 @@ Typical fields include:
 
 If the backend can enumerate models, the app can pull them remotely. If not, you can maintain model IDs manually.
 
-## 3. Scene model bindings
+## 10. Scene model bindings
 
 The app does not treat the agent as a one-model system. The current code exposes these scene IDs:
 
@@ -71,7 +167,7 @@ The app does not treat the agent as a one-model system. The current code exposes
 - `memory.embedding`: must be a real embedding model.
 - `memory.rollup`: nightly memory consolidation can usually run on a cheaper summarization model.
 
-## 4. Workspace memory
+## 11. Workspace memory
 
 The workspace memory page can directly edit:
 
@@ -98,7 +194,7 @@ workspace/.omnibot/
 └── memory/short-memories/
 ```
 
-## 5. Local models
+## 12. Local models
 
 The local models page is split into two primary tabs:
 
@@ -125,7 +221,7 @@ workspace/.omnibot/models/
 - Only when your target device has compatible Qualcomm NPU support.
 - Keep the related build and runtime constraints in mind together with `omniinfer.backend.executorch_qnn=true`.
 
-## 6. Local MCP and remote MCP
+## 13. Local MCP and remote MCP
 
 ### Local MCP
 
@@ -156,7 +252,7 @@ The app also includes a dedicated remote MCP tools page that lets you:
 - refresh the tool list
 - delete it
 
-## 7. Permissions
+## 14. Permissions
 
 To make the agent truly executable, these core permissions should be completed first:
 
@@ -175,3 +271,21 @@ Optional enhancements include:
 - exact alarms
 
 For details, see [Permissions and Storage](/en/reference/permissions-and-storage).
+
+## 15. Running this docs site
+
+Inside the docs repository:
+
+```bash
+npm install
+npm run docs:dev
+```
+
+To build the static site:
+
+```bash
+npm run docs:build
+npm run docs:preview
+```
+
+The next useful pages are [First Run](/en/tutorials/first-run) and [Model and Scene Setup](/en/tutorials/model-setup).

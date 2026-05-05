@@ -1,8 +1,104 @@
-# 配置指南
+# 开发指南
 
-这一页按“从能跑到好用”的顺序整理：先是构建配置，再是模型、权限、记忆、MCP 和本地模型。
+这一页把原来的“快速开始”和“配置指南”合并到一条开发路径里：先让工程跑起来，再补齐构建、模型、权限、记忆、MCP 和本地模型配置。
 
-## 1. 构建与签名配置
+::: tip
+本页内容以当前代码仓库为准，优先参考真实的 `build.gradle.kts`、`settings.gradle.kts`、`pubspec.yaml` 和源码目录，而不是历史说明。
+:::
+
+## 1. 环境要求
+
+OmnibotApp 是一个面向安卓设备的 AI Agent 应用，采用 `Kotlin + Flutter` 混合架构。它不是单纯聊天应用，而是围绕“理解、决策、执行、反馈”构建的可操作型 Agent。
+
+- JDK `11+`
+- Flutter SDK `3.9.2+`
+- Android SDK `compileSdk 36`
+- Node.js `18+`，仅用于运行这个独立的 VitePress 文档站
+
+## 2. 获取源码
+
+```bash
+git clone https://github.com/omnimind-ai/OpenOmniBot.git
+cd OpenOmniBot
+```
+
+## 3. 初始化必须的子模块
+
+项目当前直接依赖 `third_party/omniinfer`，至少需要先初始化下面这些内容：
+
+```bash
+git submodule update --init third_party/omniinfer
+git -C third_party/omniinfer submodule update --init framework/mnn
+git -C third_party/omniinfer submodule update --init framework/llama.cpp
+```
+
+如果未来你要重点使用 Qualcomm NPU 方案，再继续关注 `ExecuTorch QNN` 对应能力即可。
+
+## 4. 初始化 Flutter 模块
+
+```bash
+cd ui
+flutter pub get
+```
+
+如果 Flutter 报出：
+
+```text
+Could not read script '.../ui/.android/include_flutter.groovy'
+```
+
+执行下面两条即可：
+
+```bash
+flutter clean
+flutter pub get
+```
+
+## 5. 构建 Android 调试包
+
+回到仓库根目录后执行：
+
+```bash
+./gradlew assembleDevelopDebug
+```
+
+如果需要直接安装到设备：
+
+```bash
+./gradlew installDevelopDebug
+```
+
+## 6. 常用验证命令
+
+### Android / Gradle
+
+```bash
+./gradlew test
+./gradlew lint
+```
+
+### Flutter
+
+```bash
+cd ui
+flutter test
+flutter analyze
+```
+
+## 7. 当前工程里你需要知道的真实构建事实
+
+- Android `applicationId`: `cn.com.omnimind.bot`
+- `minSdk`: `29`
+- `targetSdk`: `34`
+- `compileSdk`: `36`
+- 当前 `app` 模块版本号来自 `app/build.gradle.kts`：
+  - `versionCode = 1`
+  - `versionName = "0.3.9"`
+- 产品风味有两个：
+  - `develop`
+  - `production`
+
+## 8. 构建与签名配置
 
 仓库根目录的 `gradle.properties` 当前包含两个关键方向：
 
@@ -34,7 +130,7 @@ OMNI_RELEASE_KEY_PWD=***
 - 代码混淆
 - V2 / V3 签名
 
-## 2. 模型提供商配置
+## 9. 模型提供商配置
 
 应用里的模型提供商配置页支持两类协议：
 
@@ -50,7 +146,7 @@ OMNI_RELEASE_KEY_PWD=***
 
 如果服务端接口支持枚举模型，可以直接拉取远端模型列表；如果不支持，也可以手动维护模型 ID。
 
-## 3. 场景模型绑定
+## 10. 场景模型绑定
 
 项目不是“一个模型走天下”，而是把不同场景拆成独立绑定项。当前代码里明确可见的场景有：
 
@@ -71,7 +167,7 @@ OMNI_RELEASE_KEY_PWD=***
 - `memory.embedding`: 必须选择真正的 embedding 模型。
 - `memory.rollup`: 负责夜间记忆整理，可使用成本更低的总结模型。
 
-## 4. 工作区记忆配置
+## 11. 工作区记忆配置
 
 工作区记忆设置页当前能直接编辑三类文档：
 
@@ -98,7 +194,7 @@ workspace/.omnibot/
 └── memory/short-memories/
 ```
 
-## 5. 本地模型配置
+## 12. 本地模型配置
 
 本地模型页分成两个主标签：
 
@@ -125,7 +221,7 @@ workspace/.omnibot/models/
 - 设备具备兼容的 Qualcomm NPU 能力时再开。
 - 同时需要关注 `omniinfer.backend.executorch_qnn=true` 相关构建与运行条件。
 
-## 6. 本地 MCP 与远端 MCP
+## 13. 本地 MCP 与远端 MCP
 
 ### 本地 MCP
 
@@ -156,7 +252,7 @@ workspace/.omnibot/models/
 - 刷新工具列表
 - 删除服务
 
-## 7. 权限配置
+## 14. 权限配置
 
 要让 Agent 真正能执行，核心权限必须尽量配齐：
 
@@ -175,3 +271,21 @@ workspace/.omnibot/models/
 - 精确闹钟
 
 权限的详细落点和存储说明见 [权限与存储](/reference/permissions-and-storage)。
+
+## 15. 文档站运行方式
+
+这个文档仓是独立仓库，和主工程分开部署。进入文档仓根目录后执行：
+
+```bash
+npm install
+npm run docs:dev
+```
+
+构建静态站点：
+
+```bash
+npm run docs:build
+npm run docs:preview
+```
+
+下一步可以继续看 [首次启动教程](/tutorials/first-run) 和 [模型与场景配置](/tutorials/model-setup)。
