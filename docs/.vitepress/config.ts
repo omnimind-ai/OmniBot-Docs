@@ -65,7 +65,8 @@ const zhSidebar = {
   '/features/': [
     {
       text: '功能',
-      items: [{ text: '功能总览', link: '/features/overview' }]
+      items: [{ text: '功能总览', link: '/features/overview' }, 
+              { text: '存储页', link: '/features/storage-page'}]
     }
   ],
   '/tutorials/': [
@@ -103,7 +104,8 @@ const enSidebar = {
   '/en/features/': [
     {
       text: 'Features',
-      items: [{ text: 'Overview', link: '/en/features/overview' }]
+      items: [{ text: 'Overview', link: '/en/features/overview' },
+              { text: 'Storage Page', link: '/en/features/storage-page' }]
     }
   ],
   '/en/tutorials/': [
