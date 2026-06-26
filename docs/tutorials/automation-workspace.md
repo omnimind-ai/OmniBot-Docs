@@ -26,8 +26,8 @@
 推荐先装那些不会直接影响系统稳定性的轻量技能，验证安装链路无误后，再逐步开启更强的自动化能力。第一次可以只做一个小闭环：搜索技能、打开详情、安装或确认已安装、保持启用，然后回到聊天页让小万列出当前可用技能。
 
 <div class="image-grid">
-  <img src="/assets/skills-store.jpg" alt="技能商店">
-  <img src="/assets/skills-example.jpg" alt="技能详情">
+  <img src="/assets/skills-store-guide.png" alt="技能商店">
+  <video src="/assets/skills-example-guide.mp4" autoplay muted loop playsinline preload="metadata" poster="/assets/skills-example.jpg" aria-label="技能详情录屏"></video>
 </div>
 
 可以直接这样问：
@@ -113,8 +113,8 @@
 如果只是让小万“明天提醒我”，通常是 Alarm。如果你希望它“明天上午打开某个页面、检查内容并总结”，那就更接近 Scheduled task。
 
 <div class="image-grid">
-  <img src="/assets/timed.jpg" alt="定时任务">
-  <img src="/assets/timing.jpg" alt="时间设置">
+  <video src="/assets/timed-task.mp4" autoplay muted loop playsinline preload="metadata" poster="/assets/timed.jpg" aria-label="定时任务录屏"></video>
+  <img src="/assets/timed-task-settings.png" alt="时间设置">
 </div>
 
 ### 推荐从提醒开始
